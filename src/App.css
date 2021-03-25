@@ -9,7 +9,10 @@
     "nav content content";
 }
 
-
+.app-wrapper-content {
+    grid-area: content;
+    background-color: azure;
+}
 
 
 
