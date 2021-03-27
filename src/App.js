@@ -14,15 +14,15 @@ import DialogItem from "./components/Dialogs/DialogItem/DialogItem";
 import SecondNavbar from "./components/SecondNavBar/SecondNavbar";
 
 const App = (props) => {
-    let messageCount = props.messagesData.length;
+
+    let messageCount = props.state.dialogsPage.messagesData.length;
     //Компоненты
     let DialogsComponent = () => (
-        <Dialogs dialogsData={props.dialogsData}
-                 messagesData={props.messagesData}/>
+        <Dialogs state={props.state.dialogsPage}/>
     )
 
     let ProfileComponent = () => (
-        <Profile postsData={props.postsData}/>
+        <Profile state={props.state.profilePage}/>
     )
     let NewsComponent = () => (
         <News/>
