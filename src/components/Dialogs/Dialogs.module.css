@@ -11,8 +11,14 @@
 .dialogsItems {
     padding: 10px;
 }
-.dialogsItems .active {
-    color: gold;
+
+
+.dialogsItems a {
+    color:deeppink;
+    text-decoration: none;
+}
+.dialogsItems a.active{
+    color: darkorange;
 }
 .messages {
     padding: 10px;

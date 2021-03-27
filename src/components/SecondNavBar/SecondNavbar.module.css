@@ -1,16 +1,13 @@
-.nav {
-    grid-area: nav;
+.secnav {
+    grid-area: secnav;
     background-color: #edeef0;
-    padding: 20px;
+   /* padding: 20px;*/
     height: 100%;
-
 }
 
 .item a {
-
     color:black;
     text-decoration: none;
-    margin-left: 80%;
 }
 .item a.activeLink{
     color: darkorange;

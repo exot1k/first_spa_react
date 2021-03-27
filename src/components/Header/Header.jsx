@@ -1,11 +1,12 @@
 import React from 'react';
 import s from './Header.module.css';
+import header_pere from './header_pepe.png'
 
 const Header = () => {
     return(
     <header className={s.header}>
         <img
-            src='https://e7.pngegg.com/pngimages/922/865/png-clipart-discord-pepe-the-frog-video-games-pepe.png'/>
+            src={header_pere} />
     </header>
     );
 }

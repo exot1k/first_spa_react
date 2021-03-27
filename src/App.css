@@ -1,18 +1,25 @@
 .app-wrapper {
 
     display: grid;
+    position: relative;
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    /*grid-gap: 10px;*/
+    grid-template-columns: 2fr 5fr 2fr;
+    grid-row-gap: 10px;
+   /* grid-column-gap: 10px;*/
+    height: 100vh;
+    margin: 0;
     grid-template-areas:
     "header header header"
-    "nav content content";
+    "nav content secnav";
 }
 
 .app-wrapper-content {
     grid-area: content;
-    background-color: azure;
+    overflow: auto;
+    background-color: #ffffff;
+    border: 30px solid #edeef0;
 }
+
 
 
 
