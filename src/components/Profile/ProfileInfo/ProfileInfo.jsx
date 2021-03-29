@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
-
+import pepe_profile from './pepe_profile_info.png'
 const ProfileInfo = () => {
     return (
         <div>
             <div>
                 <img className={s.img}
-                    src='https://cdni.rbth.com/rbthmedia/images/2019.05/original/5ce3cd0515e9f97318690cc5.jpg'/>
+                    src={pepe_profile}/>
             </div>
             <div className={s.descriptionBlock} >
                 ava + descr

@@ -12,10 +12,11 @@ import Settings from "./components/Settings/Settings";
 import Message from "./components/Dialogs/Message/Message";
 import DialogItem from "./components/Dialogs/DialogItem/DialogItem";
 import SecondNavbar from "./components/SecondNavBar/SecondNavbar";
+import Friends from "./components/Friends/Friends";
 
 const App = (props) => {
 
-    let messageCount = props.state.dialogsPage.messagesData.length;
+    let messageCount = props.state.dialogsPage.dialogsData.length;
     //Компоненты
     let DialogsComponent = () => (
         <Dialogs state={props.state.dialogsPage}/>
@@ -34,8 +35,12 @@ const App = (props) => {
         <Settings/>
     )
 
+    let FriendsComponent = () => (
+        <Friends/>
+    )
+
     return (
-        <BrowserRouter>
+
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar messageCount={messageCount}/>
@@ -45,10 +50,10 @@ const App = (props) => {
                     <Route path={"/news"} render={NewsComponent}/>
                     <Route path={"/music"} render={MusicComponent}/>
                     <Route path={"/settings"} render={SettingsComponent}/>
+                    <Route path={"/friends"} render={FriendsComponent}/>
                 </div>
                 <SecondNavbar/>
             </div>
-        </BrowserRouter>
     );
 }
 

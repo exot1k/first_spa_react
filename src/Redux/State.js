@@ -37,55 +37,59 @@ let state ={
         dialogsData: [
             {
                 id: 1,
-                name: 'Dimych'
+                name: 'Dimych',
+                lastMessage:'Hi',
+                icon: ''
             },
             {
                 id: 2,
-                name: 'Andrey'
+                name: 'Andrey',
+                lastMessage:'How are you?',
+                icon: ''
             },
             {
                 id: 3,
-                name: 'Djohn'
+                name: 'Djohn',
+                lastMessage:'Yo',
+                icon: ''
             },
             {
                 id: 4,
-                name: 'Victor'
+                name: 'Victor',
+                lastMessage:'Yo',
+                icon: ''
             },
             {
                 id: 5,
-                name: 'Valery'
+                name: 'Valery',
+                lastMessage:'Yo',
+                icon: ''
             },
             {
                 id: 6,
-                name: 'Sany'
-            }],
-        messagesData:  [
-            {
-                id: 1,
-                message: 'Hi'
-            },
-            {
-                id: 2,
-                message: 'How are you?'
-            },
-            {
-                id: 3,
-                message: 'Yo'
-            },
-            {
-                id: 4,
-                message: 'Yo'
-            },
-            {
-                id: 5,
-                message: 'Yo'
-            },
-            {
-                id: 6,
-                message: 'Yo'
+                name: 'Sany',
+                lastMessage:'Yo',
+                icon: ''
             }]
     },
-    sitebar: {}
+    sitebar: {
+        bestFriends: [
+            {
+                id: 1,
+                name: 'Dimych',
+                icon: ''
+            },
+            {
+                id: 2,
+                name: 'Dimych',
+                icon: ''
+            },
+            {
+                id: 3,
+                name: 'Dimych',
+                icon: ''
+            }]
+    }
 
 }
 

@@ -5,8 +5,10 @@ import header_pere from './header_pepe.png'
 const Header = () => {
     return(
     <header className={s.header}>
+
         <img
             src={header_pere} />
+
     </header>
     );
 }

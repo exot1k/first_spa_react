@@ -7,18 +7,20 @@ import DialogItem from "./DialogItem/DialogItem";
 const Dialogs = (props) => {
 
     let messagesElements =
-        props.state.messagesData.map((el) => <Message message={el.message}/>);
+        props.state.dialogsData.map((el) => <Message message={el.lastMessage}/>);
     let dialogsElements =
-        props.state.dialogsData.map((el) => <DialogItem id={el.id} name={el.name}/>);
+        props.state.dialogsData.map((el) => <li className={s.dialogListLi}><DialogItem state={el} /> </li>);
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {dialogsElements}
+                <ul>
+                    {dialogsElements}
+                </ul>
             </div>
-            <div className={s.messages}>
+           {/* <div className={s.dialogsItems}>
                 {messagesElements}
-            </div>
+            </div>*/}
         </div>
     );
 }

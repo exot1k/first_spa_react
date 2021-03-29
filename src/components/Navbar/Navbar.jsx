@@ -21,6 +21,25 @@ const Navbar = (props) => {
             <div className={classes.item}>
                 <NavLink to={'/settings'} activeClassName={classes.activeLink} >Settings</NavLink>
             </div>
+            <div className={classes.item}>
+                <NavLink to={'/friends'} activeClassName={classes.activeLink} >Friends</NavLink>
+            </div>
+            <div className={classes.item}>
+                <ul>
+                    <li>
+                        <img
+                            src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
+                    </li>
+                    <li>
+                        <img
+                            src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
+                    </li>
+                    <li>
+                        <img
+                            src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
+                    </li>
+                </ul>
+            </div>
         </nav>
     );
 }
