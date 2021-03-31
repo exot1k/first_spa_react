@@ -23,7 +23,7 @@ const App = (props) => {
     )
 
     let ProfileComponent = () => (
-        <Profile state={props.state.profilePage}/>
+        <Profile state={props.state.profilePage} controll={props.controll.ProfilePage}/>
     )
     let NewsComponent = () => (
         <News/>

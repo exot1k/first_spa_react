@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost} from "./Redux/State";
+import {controll} from "./Redux/State";
 
 
 export let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state}/>
+                <App state={state} controll={controll}/>
             </BrowserRouter>
         </React.StrictMode>
         ,

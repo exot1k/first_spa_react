@@ -2,37 +2,40 @@ import {rerenderEntireTree} from "../render";
 
 let state ={
     profilePage: {
-        postsData:  [
-            {
-                id: 1,
-                message: 'Hi,How are you',
-                likesCount: 12
-            },
-            {
-                id: 2,
-                message: 'It\'s my frist post?"',
-                likesCount: 11
-            },
-            {
-                id: 3,
-                message: 'Yo',
-                likesCount: 0
-            },
-            {
-                id: 4,
-                message: 'Yo',
-                likesCount: 0
-            },
-            {
-                id: 5,
-                message: 'Yo',
-                likesCount: 0
-            },
-            {
-                id: 6,
-                message: 'Yo',
-                likesCount: 0
-            }]
+        myPostsData: {
+            postsData:  [
+                {
+                    id: 1,
+                    message: 'Hi,How are you',
+                    likesCount: 12
+                },
+                {
+                    id: 2,
+                    message: 'It\'s my frist post?"',
+                    likesCount: 11
+                },
+                {
+                    id: 3,
+                    message: 'Yo',
+                    likesCount: 0
+                },
+                {
+                    id: 4,
+                    message: 'Yo',
+                    likesCount: 0
+                },
+                {
+                    id: 5,
+                    message: 'Yo',
+                    likesCount: 0
+                },
+                {
+                    id: 6,
+                    message: 'Yo',
+                    likesCount: 0
+                }],
+            newPostTest: undefined
+        },
     },
     dialogsPage:  {
         dialogsData: [
@@ -91,18 +94,31 @@ let state ={
                 icon: ''
             }]
     }
-
 }
 
-export let addPost = (postMessage) => {
+ let addPost = () => {
     let newPost = {
         id: 5,
-        message: postMessage,
-        likeCount: 0
+        message:  state.profilePage.myPostsData.newPostTest,
+        likesCount: 0
     };
-
-    state.profilePage.postsData.push(newPost);
+    state.profilePage.myPostsData.postsData.push(newPost);
+    state.profilePage.myPostsData.newPostTest = '';
     rerenderEntireTree(state);
+}
+
+let updateBewPostText  = (changeText)  => {
+    state.profilePage.myPostsData.newPostTest = changeText;
+    rerenderEntireTree(state);
+}
+
+export let controll = {
+    ProfilePage: {
+        MyPostsControll: {
+            addPost: addPost,
+            updateBewPostText: updateBewPostText,
+        }
+    }
 }
 
 export default state;
