@@ -1,4 +1,8 @@
-import {rerenderEntireTree} from "../render";
+import {observe} from "web-vitals/dist/modules/lib/observe";
+
+let rerenderEntireTree = () => {
+
+}
 
 let state ={
     profilePage: {
@@ -96,7 +100,7 @@ let state ={
     }
 }
 
- let addPost = () => {
+const addPost = () => {
     let newPost = {
         id: 5,
         message:  state.profilePage.myPostsData.newPostTest,
@@ -107,7 +111,7 @@ let state ={
     rerenderEntireTree(state);
 }
 
-let updateBewPostText  = (changeText)  => {
+const updateBewPostText  = (changeText)  => {
     state.profilePage.myPostsData.newPostTest = changeText;
     rerenderEntireTree(state);
 }
@@ -119,6 +123,10 @@ export let controll = {
             updateBewPostText: updateBewPostText,
         }
     }
+}
+
+export  const subscribe = (observe) => {
+    rerenderEntireTree = observe;
 }
 
 export default state;
