@@ -9,13 +9,18 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef();
     let onAddPost = () => {
-        props.controll.addPost();
-
+        //props.myPostsController.addPost();
+        props.dispatch({
+            type: 'ADD-POST'
+        });
     }
 
     let onPostChange = () => {
-        debugger;
-        props.controll.updateBewPostText(newPostElement.current.value)
+        //props.myPostsController.updateNewPostText(newPostElement.current.value)
+        props.dispatch({
+            type: 'UPDATE-NEW-POST-TEXT',
+            newText: newPostElement.current.value
+        })
     }
 
     return (

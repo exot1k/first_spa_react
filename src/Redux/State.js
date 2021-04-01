@@ -1,6 +1,6 @@
 import {observe} from "web-vitals/dist/modules/lib/observe";
 
-let rerenderEntireTree = () => {
+let _calSubscriber = () => {
 
 }
 
@@ -100,33 +100,36 @@ let state ={
     }
 }
 
-const addPost = () => {
-    let newPost = {
-        id: 5,
-        message:  state.profilePage.myPostsData.newPostTest,
-        likesCount: 0
-    };
-    state.profilePage.myPostsData.postsData.push(newPost);
-    state.profilePage.myPostsData.newPostTest = '';
-    rerenderEntireTree(state);
+const subscribe = (observe) => {
+    _calSubscriber = observe;
 }
 
-const updateBewPostText  = (changeText)  => {
-    state.profilePage.myPostsData.newPostTest = changeText;
-    rerenderEntireTree(state);
-}
+export let store = {
+    _state: state,
+    getState(){
+        return this._state;
+    },
 
-export let controll = {
-    ProfilePage: {
-        MyPostsControll: {
-            addPost: addPost,
-            updateBewPostText: updateBewPostText,
+    _updateNewPostText(newText) {
+        this._state.profilePage.myPostsData.newPostTest = newText;
+        _calSubscriber(this);
+    },
+    _addPost(){
+        let newPost = {
+            id: 5,
+            message:  this._state.profilePage.myPostsData.newPostTest,
+            likesCount: 0
+        };
+        this._state.profilePage.myPostsData.postsData.push(newPost);
+        this._state.profilePage.myPostsData.newPostTest = '';
+        _calSubscriber(this);
+    },
+    dispatch(action){
+        if (action.type === 'ADD-POST'){
+           this._addPost();
+        } else if(action.type === 'UPDATE-NEW-POST-TEXT'){
+            this._updateNewPostText(action.newText)
         }
-    }
+    },
+    subscribe
 }
-
-export  const subscribe = (observe) => {
-    rerenderEntireTree = observe;
-}
-
-export default state;

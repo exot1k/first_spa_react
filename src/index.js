@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, {subscribe} from './Redux/State';
+import {store} from './Redux/State';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,11 +9,12 @@ import {BrowserRouter} from "react-router-dom";
 import {controll} from "./Redux/State";
 
 
- let rerenderEntireTree = (state) => {
+let rerenderEntireTree = (store) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} controll={controll}/>
+                <App state={store.getState()}
+                     dispatch={store.dispatch.bind(store)}/>
             </BrowserRouter>
         </React.StrictMode>
         ,
@@ -21,9 +22,9 @@ import {controll} from "./Redux/State";
     );
 };
 
-rerenderEntireTree(state);
+rerenderEntireTree(store);
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
