@@ -1,13 +1,18 @@
 import {observe} from "web-vitals/dist/modules/lib/observe";
+import profileReducer from "./ProfileReducer";
+import dialogsReducer from "./DialogsReducer";
+import sidebarReducer from "./SidebarReducer";
 
-let _calSubscriber = () => {
+//const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
+//const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
-}
+//const ADD_POST = 'ADD-POST';
+//const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-let state ={
+let state = {
     profilePage: {
         myPostsData: {
-            postsData:  [
+            postsData: [
                 {
                     id: 1,
                     message: 'Hi,How are you',
@@ -38,49 +43,50 @@ let state ={
                     message: 'Yo',
                     likesCount: 0
                 }],
-            newPostTest: undefined
+            newPostText: undefined
         },
     },
-    dialogsPage:  {
+    dialogsPage: {
         dialogsData: [
             {
                 id: 1,
                 name: 'Dimych',
-                lastMessage:'Hi',
+                lastMessage: 'Hi',
                 icon: ''
             },
             {
                 id: 2,
                 name: 'Andrey',
-                lastMessage:'How are you?',
+                lastMessage: 'How are you?',
                 icon: ''
             },
             {
                 id: 3,
                 name: 'Djohn',
-                lastMessage:'Yo',
+                lastMessage: 'Yo',
                 icon: ''
             },
             {
                 id: 4,
                 name: 'Victor',
-                lastMessage:'Yo',
+                lastMessage: 'Yo',
                 icon: ''
             },
             {
                 id: 5,
                 name: 'Valery',
-                lastMessage:'Yo',
+                lastMessage: 'Yo',
                 icon: ''
             },
             {
                 id: 6,
                 name: 'Sany',
-                lastMessage:'Yo',
+                lastMessage: 'Yo',
                 icon: ''
-            }]
+            }],
+        newMessageText: ""
     },
-    sitebar: {
+    sidebar: {
         bestFriends: [
             {
                 id: 1,
@@ -100,36 +106,23 @@ let state ={
     }
 }
 
-const subscribe = (observe) => {
-    _calSubscriber = observe;
-}
-
 export let store = {
     _state: state,
-    getState(){
+    getState() {
         return this._state;
     },
-
-    _updateNewPostText(newText) {
-        this._state.profilePage.myPostsData.newPostTest = newText;
-        _calSubscriber(this);
+    dispatch(action) {
+        this._state.profilePage = profileReducer( this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.dialogsPage, action);
+        this._calSubscriber(this._state);
     },
-    _addPost(){
-        let newPost = {
-            id: 5,
-            message:  this._state.profilePage.myPostsData.newPostTest,
-            likesCount: 0
-        };
-        this._state.profilePage.myPostsData.postsData.push(newPost);
-        this._state.profilePage.myPostsData.newPostTest = '';
-        _calSubscriber(this);
-    },
-    dispatch(action){
-        if (action.type === 'ADD-POST'){
-           this._addPost();
-        } else if(action.type === 'UPDATE-NEW-POST-TEXT'){
-            this._updateNewPostText(action.newText)
-        }
-    },
-    subscribe
+    _calSubscriber(){},
+    subscribe(observe) {
+    this._calSubscriber = observe;
 }
+}
+
+
+
+

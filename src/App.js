@@ -19,7 +19,8 @@ const App = (props) => {
     let messageCount = props.state.dialogsPage.dialogsData.length;
     //Компоненты
     let DialogsComponent = () => (
-        <Dialogs state={props.state.dialogsPage}/>
+        <Dialogs state={props.state.dialogsPage}
+                 dispatch={props.dispatch}/>
     )
 
     let ProfileComponent = () => (

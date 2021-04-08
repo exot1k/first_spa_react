@@ -1,20 +1,35 @@
 import React from 'react';
 import s from '../Dialogs.module.css';
 import {NavLink} from "react-router-dom";
+import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../../Redux/DialogsReducer";
+
 
 
 const DialogItem = (props) => {
     let path = '/dialogs/' + props.state.id;
-    let messageElements = React.createRef();
+    let newMessageElements = React.createRef();
+
     let onAddMessage = () =>
     {
-        let messageText = messageElements.current.value;
-        alert(messageText)
+        props.dispatch(sendMessageActionCreator());
     }
+
+    let onClickDialog = () => {
+        //debugger;
+        //alert("messageText")
+    };
+
+    let onChangeNewMessage = (e) => {
+
+        //props.dispatch(updateNewMessageActionCreator(newMessageElements.current.value));
+        props.dispatch(updateNewMessageActionCreator(e.target.value));
+    }
+
+
     return (
         <div>
             <div className={s.dialog}>
-                <ul>
+                <ul  onClick={onClickDialog}>
                     <li className={s.dialogLi}>
                         <img
                             src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
@@ -30,9 +45,9 @@ const DialogItem = (props) => {
                     </li>
                     <li >
                         <div>
-                            <textarea ref={messageElements}></textarea>
+                            <textarea onChange={onChangeNewMessage} ref={newMessageElements} value={props.newMessageText}></textarea>
                         </div>
-                        <button  onClick={onAddMessage} >Send message</button>
+                        <button onClick={onAddMessage} >Send message</button>
                     </li>
                 </ul>
 
