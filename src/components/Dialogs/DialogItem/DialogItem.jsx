@@ -6,23 +6,20 @@ import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../../
 
 
 const DialogItem = (props) => {
+
     let path = '/dialogs/' + props.state.id;
     let newMessageElements = React.createRef();
 
     let onAddMessage = () =>
     {
-        props.dispatch(sendMessageActionCreator());
+        props.onAddMessage()
     }
 
     let onClickDialog = () => {
-        //debugger;
-        //alert("messageText")
     };
 
     let onChangeNewMessage = (e) => {
-
-        //props.dispatch(updateNewMessageActionCreator(newMessageElements.current.value));
-        props.dispatch(updateNewMessageActionCreator(e.target.value));
+        props.onChangeNewMessage(e.target.value);
     }
 
 

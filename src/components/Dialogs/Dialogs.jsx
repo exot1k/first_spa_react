@@ -2,16 +2,18 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
+import DialogItemContainer from "./DialogItem/DialogItemContainer";
 
 
 const Dialogs = (props) => {
 
-    let messagesElements =
-        props.state.dialogsData.map((el) => <Message message={el.lastMessage}/>);
+    /*let messagesElements =
+        props.store.getState().dialogsPage.dialogsData.map((el) => <Message message={el.lastMessage}/>);*/
+
     let dialogsElements =
-        props.state.dialogsData.map((el) =>
+        props.store.getState().dialogsPage.dialogsData.map((el) =>
             <li className={s.dialogListLi}>
-                <DialogItem state={el} dispatch={props.dispatch} newMessageText={props.state.newMessageText}/>
+                <DialogItemContainer state={el} store={props.store}/>
             </li>
         );
 

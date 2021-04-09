@@ -16,16 +16,14 @@ import Friends from "./components/Friends/Friends";
 
 const App = (props) => {
 
-    let messageCount = props.state.dialogsPage.dialogsData.length;
+    let messageCount = props.store.getState().dialogsPage.dialogsData.length;
     //Компоненты
     let DialogsComponent = () => (
-        <Dialogs state={props.state.dialogsPage}
-                 dispatch={props.dispatch}/>
+        <Dialogs store={props.store} />
     )
 
     let ProfileComponent = () => (
-        <Profile state={props.state.profilePage}
-                 dispatch={props.dispatch}/>
+        <Profile store={props.store}/>
     )
     let NewsComponent = () => (
         <News/>
