@@ -1,17 +1,12 @@
 .dialogs {
     display: grid;
-   /*grid-template-columns: 2fr 10fr;*/
 }
 
 .dialogs .dialog {
     background: #edeef0;
-    /* color: #fff; */
+    margin: 20px;
     padding: 10px;
     border-radius: 5px;
-}
-
-.dialogsItems {
-    padding: 10px;
 }
 
 .dialogs img {
@@ -19,21 +14,6 @@
     height: 60px;
     border-radius: 30px;
 }
-
-.dialogsItems a {
-    color:deeppink;
-    text-decoration: none;
-}
-.dialogsItems a.active{
-    color: darkorange;
-}
-/*.messages {
-    padding: 10px;
-}
-
-.messages .message {
-    grid-area: content;
-}*/
 
 .dialogs ul {
     padding-left: 10px;
@@ -45,8 +25,4 @@
     margin-right:5px;
     height:100%;
     vertical-align: -webkit-baseline-middle;
-}
-
-.dialogListLi{
-    margin: 10px;
 }

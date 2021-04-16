@@ -1,67 +1,34 @@
 import React from 'react';
-import s from '../Dialogs.module.css';
-import {NavLink} from "react-router-dom";
-import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../../Redux/DialogsReducer";
-
-
+import Message from "../Message/Message";
 
 const DialogItem = (props) => {
 
-    let path = '/dialogs/' + props.state.id;
-    let newMessageElements = React.createRef();
 
     let onAddMessage = () =>
     {
         props.onAddMessage()
     }
 
-    let onClickDialog = () => {
-    };
-
     let onChangeNewMessage = (e) => {
         props.onChangeNewMessage(e.target.value);
     }
 
+    let messageItems =
+        props.dialogsData.map((el) =>
+                <Message dialogsData={el} key={el.id}/>
+        );
 
-    return (
+    return(
         <div>
-            <div className={s.dialog}>
-                <ul  onClick={onClickDialog}>
-                    <li className={s.dialogLi}>
-                        <img
-                            src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
-                    </li>
-                    <li className={s.dialogLi}>
-                        <div>
-                            <span><NavLink to={path} activeClassName={s.active}> {props.state.name} </NavLink></span>
-                            <div>
-                                {props.state.lastMessage}
-                            </div>
-                        </div>
 
-                    </li>
-                    <li >
-                        <div>
-                            <textarea onChange={onChangeNewMessage} ref={newMessageElements} value={props.newMessageText}></textarea>
-                        </div>
-                        <button onClick={onAddMessage} >Send message</button>
-                    </li>
-                </ul>
-
-                {/* <div>
-                    <img
-                        src={'https://spng.pngfind.com/pngs/s/475-4759930_pepe-meme-rarepepe-slav-russian-pepe-the-frog.png'}/>
-                </div>
-                <div className={s.message}>
-                    <span><NavLink to={path} activeClassName={s.active}> {props.state.name} </NavLink></span>
-                    <div>
-                        {props.state.lastMessage}
-                    </div>
-                </div>*/}
-
+            <div>
+                <textarea onChange={onChangeNewMessage} value={props.newMessageText}></textarea>
             </div>
+            <button onClick={onAddMessage} >Send message</button>
+
+            {messageItems}
         </div>
-    );
+    )
 }
 
 export default DialogItem;

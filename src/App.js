@@ -19,11 +19,11 @@ const App = (props) => {
     let messageCount = props.store.getState().dialogsPage.dialogsData.length;
     //Компоненты
     let DialogsComponent = () => (
-        <Dialogs store={props.store} />
+        <Dialogs />
     )
 
     let ProfileComponent = () => (
-        <Profile store={props.store}/>
+        <Profile />
     )
     let NewsComponent = () => (
         <News/>
@@ -45,7 +45,7 @@ const App = (props) => {
                 <Header/>
                 <Navbar messageCount={messageCount}/>
                 <div className={"app-wrapper-content"}>
-                    <Route path={"/dialogs"} render={DialogsComponent} />
+                    <Route exact path={"/dialogs"} render={DialogsComponent} />
                     <Route path={"/profile"} render={ProfileComponent} />
                     <Route path={"/news"} render={NewsComponent}/>
                     <Route path={"/music"} render={MusicComponent}/>
