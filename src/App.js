@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
@@ -9,21 +8,20 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import Message from "./components/Dialogs/Message/Message";
-import DialogItem from "./components/Dialogs/DialogItem/DialogItem";
 import SecondNavbar from "./components/SecondNavBar/SecondNavbar";
 import Friends from "./components/Friends/Friends";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
 
     let messageCount = props.store.getState().dialogsPage.dialogsData.length;
     //Компоненты
     let DialogsComponent = () => (
-        <Dialogs />
+        <Dialogs/>
     )
 
     let ProfileComponent = () => (
-        <Profile />
+        <Profile/>
     )
     let NewsComponent = () => (
         <News/>
@@ -39,21 +37,26 @@ const App = (props) => {
         <Friends/>
     )
 
+    let UsersComponent = () => (
+        <UsersContainer/>
+    )
+
     return (
 
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar messageCount={messageCount}/>
-                <div className={"app-wrapper-content"}>
-                    <Route exact path={"/dialogs"} render={DialogsComponent} />
-                    <Route path={"/profile"} render={ProfileComponent} />
-                    <Route path={"/news"} render={NewsComponent}/>
-                    <Route path={"/music"} render={MusicComponent}/>
-                    <Route path={"/settings"} render={SettingsComponent}/>
-                    <Route path={"/friends"} render={FriendsComponent}/>
-                </div>
-                <SecondNavbar/>
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar messageCount={messageCount}/>
+            <div className={"app-wrapper-content"}>
+                <Route exact path={"/dialogs"} render={DialogsComponent}/>
+                <Route path={"/profile"} render={ProfileComponent}/>
+                <Route path={"/news"} render={NewsComponent}/>
+                <Route path={"/music"} render={MusicComponent}/>
+                <Route path={"/settings"} render={SettingsComponent}/>
+                <Route path={"/friends"} render={FriendsComponent}/>
+                <Route path={"/users"} render={UsersComponent}/>
             </div>
+            <SecondNavbar/>
+        </div>
     );
 }
 
