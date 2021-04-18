@@ -5,12 +5,11 @@ import userPhoto from '../../Assets/Images/15193c074ae8ef6f13d351602618ee7d.jpg'
 
 class Users extends React.Component {
 
-    constructor(props) {
-        super(props);
-           axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            })
-        debugger
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+
+            this.props.setUsers(response.data.items)
+        })
     }
 
     render() {
