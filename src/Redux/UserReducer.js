@@ -13,8 +13,6 @@ let initialState = {
 }
 
 const UsersReducer = (state = initialState, action) => {
-
-
     switch (action.type) {
         case CHANGE_FOLLOW:
             return ({
@@ -54,18 +52,19 @@ const UsersReducer = (state = initialState, action) => {
 
 }
 
-export const changeFollowAC = (userId) =>
+export const changeFollow = (userId) =>
     ({type: CHANGE_FOLLOW, userId})
 
-export const setUsersAC = (usersData) =>
+export const setUsers = (usersData) =>
     ({type: SET_USERS, usersData})
-export const setCurrentPageAC = (currentPage) =>
+
+export const setCurrentPage = (currentPage) =>
     ({type: SET_CURRENT_PAGE, currentPage})
 
-export const setTotalCountAC = (totalCount) =>
+export const setTotalCount = (totalCount) =>
     ({type: SET_TOTAL_COUNT, totalCount})
 
-export const setFetchingAC = (isFetching) =>
+export const setFetching = (isFetching) =>
     ({type: TOGGLE_IS_FETCHING, isFetching})
 
 

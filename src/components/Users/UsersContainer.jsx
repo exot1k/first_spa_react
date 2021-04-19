@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {changeFollowAC, setUsersAC, setCurrentPageAC, setTotalCountAC, setFetchingAC} from "../../Redux/UserReducer";
+import {changeFollow, setUsers, setCurrentPage, setTotalCount, setFetching} from "../../Redux/UserReducer";
 import * as axios from "axios";
 import Users from "./Users";
 import loader from '../../Assets/Images/loadbar.gif'
@@ -31,13 +31,13 @@ class UsersContainer extends React.Component {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
-                      pageSize={this.props.pageSize}
-                      currentPage={this.props.currentPage}
-                      usersData={this.props.usersData}
-                      onPageChanged={this.onPageChanged}
-                      changeFollow={this.props.changeFollow}
-                      isFEtchin={this.props.isFetching}/>
-            </>
+                   pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
+                   usersData={this.props.usersData}
+                   onPageChanged={this.onPageChanged}
+                   changeFollow={this.props.changeFollow}
+                   isFEtchin={this.props.isFetching}/>
+        </>
 
     }
 }
@@ -52,24 +52,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        changeFollow: (userId) => {
-            dispatch(changeFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalCount: (totalCount) => {
-            dispatch(setTotalCountAC(totalCount))
-        },
-        setFetching: (isFetching) => {
-            dispatch(setFetchingAC(isFetching))
-        }
-    }
+let mapDispatchToProps = {
+    changeFollow, setUsers, setCurrentPage, setTotalCount, setFetching
 }
 
 
