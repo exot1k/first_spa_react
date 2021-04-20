@@ -1,6 +1,7 @@
 import s from './Users.module.css';
 import * as axios from "axios";
 import userPhoto from '../../Assets/Images/15193c074ae8ef6f13d351602618ee7d.jpg'
+import {NavLink} from "react-router-dom";
 
 
 let Users = (props) => {
@@ -25,10 +26,14 @@ let Users = (props) => {
             })}
         </div>
         {
-           props.usersData.map(u => <div key={u.id}>
+            props.usersData.map(u => <div key={u.id}>
                     <span>
-                        <div><img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                  className={s.userPhoto}/></div>
+                        <div>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={s.userPhoto}/>
+                            </NavLink>
+                        </div>
                         <div>
                             <button onClick={() => {
                                 props.changeFollow(u.id)
@@ -55,7 +60,6 @@ let Users = (props) => {
         </div>
     </div>
 };
-
 
 
 export default Users;
