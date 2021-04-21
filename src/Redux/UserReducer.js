@@ -12,7 +12,7 @@ let initialState = {
     isFetching: true
 }
 
-const UsersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_FOLLOW:
             return ({
@@ -68,6 +68,6 @@ export const setFetching = (isFetching) =>
     ({type: TOGGLE_IS_FETCHING, isFetching})
 
 
-export default UsersReducer;
+export default usersReducer;
 
 
