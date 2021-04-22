@@ -7,26 +7,27 @@ const Navbar = (props) => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
-                <NavLink to={'/profile'} activeClassName={classes.activeLink} >Profile</NavLink>
+                <NavLink to={'/profile'} activeClassName={classes.activeLink}>Profile</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to={'/dialogs'} activeClassName={classes.activeLink} >Message({props.messageCount})</NavLink>
+                <NavLink to={'/dialogs'} activeClassName={classes.activeLink}>Message({props.messageCount})</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to={'/news'} activeClassName={classes.activeLink} >News</NavLink>
+                <NavLink to={'/news'} activeClassName={classes.activeLink}>News</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to={'/music'} activeClassName={classes.activeLink} >Music</NavLink>
+                <NavLink to={'/music'} activeClassName={classes.activeLink}>Music</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to={'/settings'} activeClassName={classes.activeLink} >Settings</NavLink>
-            </div>
-            <div className={classes.item}>
-                <NavLink to={'/friends'} activeClassName={classes.activeLink} >Friends</NavLink>
+                <NavLink to={'/settings'} activeClassName={classes.activeLink}>Settings</NavLink>
             </div>
             <div className={classes.item}>
                 <NavLink to={'/users'} activeClassName={classes.activeLink}>Users</NavLink>
             </div>
+            <div className={classes.item}>
+                <NavLink to={'/friends'} activeClassName={classes.activeLink}>Friends</NavLink>
+            </div>
+
             <div className={classes.item}>
                 <ul>
                     <li>

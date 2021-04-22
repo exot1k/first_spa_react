@@ -25,8 +25,8 @@ const App = (props) => {
                 <Route path={"/news"} render={() =>   <News/>}/>
                 <Route path={"/music"} render={() => <Music/>}/>
                 <Route path={"/settings"} render={() =>  <Settings/>}/>
-                <Route path={"/friends"} render={() => <Friends/>}/>
                 <Route path={"/users"} render={ () => <UsersContainer/>}/>
+                <Route path={"/friends"} render={() => <Friends/>}/>
             </div>
             <SecondNavbar/>
         </div>
