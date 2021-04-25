@@ -1,8 +1,10 @@
+import {usersAPI} from "../api/api";
+
 const CHANGE_FOLLOW = 'CHANGE_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_TOTAL_COUNT ='SET_TOTAL_COUNT'
-const TOGGLE_IS_FETCHING  ='TOGGLE_IS_FETCHING'
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 let initialState = {
     usersData: [],
@@ -66,6 +68,16 @@ export const setTotalCount = (totalCount) =>
 
 export const setFetching = (isFetching) =>
     ({type: TOGGLE_IS_FETCHING, isFetching})
+
+export const getUsers = (currentPage,pageSize) => (dispatch) => {
+    dispatch(setFetching(true));
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalCount(data.totalCount))
+            dispatch(setFetching(false));
+        })
+}
 
 
 export default usersReducer;
