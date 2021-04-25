@@ -1,5 +1,4 @@
 import s from './Users.module.css';
-import * as axios from "axios";
 import userPhoto from '../../Assets/Images/15193c074ae8ef6f13d351602618ee7d.jpg'
 import {NavLink} from "react-router-dom";
 
@@ -35,8 +34,10 @@ let Users = (props) => {
                             </NavLink>
                         </div>
                         <div>
-                            <button onClick={() => {
-                                props.changeFollow(u.id)
+                            <button
+                            disabled={props.followingInProgress.some(id => id === u.id)}
+                                onClick={() => {
+                                    props.followUpdate(u.id, u.followed)
                             }}>
                                 {u.followed ? 'Unfollow' : 'Follow'}
                             </button>

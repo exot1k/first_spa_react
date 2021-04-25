@@ -1,31 +1,20 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {changeFollow, setUsers, setCurrentPage, setTotalCount, setFetching, getUsers} from "../../Redux/UserReducer";
+import { setCurrentPage, getUsers,followUpdate} from "../../Redux/UserReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
+
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage,this.props.pageSize);
-        /*this.props.setFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items)
-                this.props.setTotalCount(data.totalCount)
-                this.props.setFetching(false);
-            })*/
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.setFetching(true);
         this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items)
-                this.props.setFetching(false);
-            })
+        this.props.getUsers(pageNumber,this.props.pageSize);
+
     }
 
     render() {
@@ -37,8 +26,9 @@ class UsersContainer extends React.Component {
                    currentPage={this.props.currentPage}
                    usersData={this.props.usersData}
                    onPageChanged={this.onPageChanged}
-                   changeFollow={this.props.changeFollow}
-                   isFEtchin={this.props.isFetching}/>
+                   isFetchin={this.props.isFetching}
+                   followingInProgress={this.props.followingInProgress}
+                   followUpdate={this.props.followUpdate}/>
         </>
 
     }
@@ -50,12 +40,15 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
 let mapDispatchToProps = {
-    changeFollow, setUsers, setCurrentPage, setTotalCount, setFetching, getUsers
+    setCurrentPage,
+    getUsers,
+    followUpdate
 }
 
 
