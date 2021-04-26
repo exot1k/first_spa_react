@@ -6,7 +6,8 @@ import {connect} from "react-redux";
 let mapStateToProps = (state) => {
     return {
         newMessageText: state.dialogsPage.newMessageText,
-        dialogsData: state.dialogsPage.dialogsData
+        dialogsData: state.dialogsPage.dialogsData,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -16,6 +17,7 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(updateNewMessageActionCreator(newMessage));
         },
         onAddMessage: () =>{
+
             dispatch(sendMessageActionCreator());
         }
     }
