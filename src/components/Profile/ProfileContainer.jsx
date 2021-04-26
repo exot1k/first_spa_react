@@ -35,5 +35,3 @@ export default compose(
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
-
-//connect(mapStateToProps,mapDispatchToProps)(withRouter(AuthRedirectComponent));
