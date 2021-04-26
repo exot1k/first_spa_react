@@ -3,6 +3,7 @@ import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../../
 import DialogItem from "./DialogItem";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 const AuthRedirectComponent = withAuthRedirect(DialogItem);
 
@@ -19,15 +20,18 @@ let mapDispatchToProps = (dispatch) => {
         onChangeNewMessage: (newMessage) => {
             dispatch(updateNewMessageActionCreator(newMessage));
         },
-        onAddMessage: () =>{
+        onAddMessage: () => {
 
             dispatch(sendMessageActionCreator());
         }
     }
 }
 
-const DialogItemContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+
+//const DialogItemContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 
-
-export default DialogItemContainer;
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(DialogItem);

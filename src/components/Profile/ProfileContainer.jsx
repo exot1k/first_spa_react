@@ -1,10 +1,10 @@
 import React from 'react';
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../Redux/ProfileReducer";
-import {Redirect, withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -19,8 +19,6 @@ class ProfileContainer extends React.Component {
 
 }
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile
 })
@@ -31,4 +29,11 @@ let mapDispatchToProps =
     }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(AuthRedirectComponent));
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
+
+//connect(mapStateToProps,mapDispatchToProps)(withRouter(AuthRedirectComponent));
