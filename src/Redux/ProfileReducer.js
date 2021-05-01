@@ -87,12 +87,12 @@ export const setUserProfile = (profile) =>
 export const setStatus = (status) =>
     ({type: SET_STATUS, status})
 
-export const getUserProfile = (userId = 16649) => (dispatch) => {
+export const getUserProfile = (userId) => (dispatch) => {
     usersAPI.getUserProfile(userId).then(response => {
         dispatch(setUserProfile(response.data));
     })
 }
-export const getUserStatus = (userId = 16649) => (dispatch) => {
+export const getUserStatus = (userId ) => (dispatch) => {
     usersAPI.getUserStatus(userId).then(response => {
         dispatch(setStatus(response.data));
     })

@@ -8,9 +8,8 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-
-        this.props.getUserProfile(this.props.match.params.userId)
-        this.props.getUserStatus(this.props.match.params.userId)
+        this.props.getUserProfile(this.props.match.params.userId || this.props.userId )
+        this.props.getUserStatus(this.props.match.params.userId || this.props.userId)
     }
 
     render() {
@@ -24,7 +23,8 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    userId: state.auth.userId
 })
 
 let mapDispatchToProps =

@@ -1,4 +1,5 @@
 import {usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
@@ -27,7 +28,7 @@ export const setAuthUserData = (userId, login, email, isAuth) =>
     ({type: SET_USER_DATA, payload: {userId, login, email, isAuth}});
 
 export const getAuth = () => (dispatch) => {
-    usersAPI.getAuth().then(
+   return usersAPI.getAuth().then(
         data => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data;
@@ -38,10 +39,14 @@ export const getAuth = () => (dispatch) => {
 }
 
 export const login = (email,password, rememberMe) => (dispatch) => {
+
     usersAPI.login(email,password, rememberMe).then(
         data => {
             if (data.resultCode === 0) {
                dispatch(getAuth())
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+                dispatch(stopSubmit("login", {_error: message}))
             }
         }
     )
