@@ -1,4 +1,7 @@
+import {createSelector} from "reselect";
+
 export const getUsersSelector = (state) => {
+
     return state.usersPage.usersData
 }
 export const getPageSize = (state) => {
@@ -21,3 +24,7 @@ export const getFetching = (state) => {
 export const getFollowingProgress = (state) => {
     return state.usersPage.followingInProgress
 }
+
+export const getUsersSuper = createSelector(getUsersSelector,(users) => {
+    return  users.filter(u => true)
+})
