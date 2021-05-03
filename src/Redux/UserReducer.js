@@ -80,6 +80,7 @@ export const setFetching = (isFetching) =>
 
 export const getUsers = (currentPage, pageSize) => (dispatch) => {
     dispatch(setFetching(true));
+    dispatch(setCurrentPage(currentPage))
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(setUsers(data.items))
