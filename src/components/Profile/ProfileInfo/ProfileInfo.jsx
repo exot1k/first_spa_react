@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import pepe_profile from './pepe_profile_info.png'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
     if (!props.profile){
@@ -17,7 +18,7 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.descriptionBlock} >
                 <img src={props.profile.photos.large}/>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     );
