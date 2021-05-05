@@ -1,18 +1,16 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {updateNewPostActionCreator, addPostActionCreator} from "../../../Redux/ProfileReducer";
 
 
-
-const MyPosts = (props) => {
-
-    let postsElements =  props.postsData.map((el) => (
-        <Post title={"Post" + el.id} message={el.message} like={el.likesCount}  key={el.id}/>));
+const MyPosts = React.memo(props => {
+    console.log("render")
+    let postsElements = props.postsData.map((el) => (
+        <Post title={"Post" + el.id} message={el.message} like={el.likesCount} key={el.id}/>));
 
     let newPostElement = React.createRef();
     let onAddPost = () => {
-       props.addPost();
+        props.addPost();
     }
 
     let onPostChange = () => {
@@ -35,6 +33,6 @@ const MyPosts = (props) => {
             </div>
         </div>
     );
-}
+});
 
 export default MyPosts;
