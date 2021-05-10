@@ -1,6 +1,7 @@
 import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/15193c074ae8ef6f13d351602618ee7d.jpg'
 import {NavLink} from "react-router-dom";
+import Paginator from "../common/Paginator/Paginator";
 
 
 let Users = (props) => {
@@ -12,18 +13,10 @@ let Users = (props) => {
     }
 
     return <div>
-        <div>
-            {pages.map(p => {
-                return (
-                    <span className={props.currentPage === p ? s.selectedPage : '' }
-                          onClick={(e) => {
-                              props.onPageChanged(p)
-                          }}>
-                                {p}
-                            </span>
-                )
-            })}
-        </div>
+
+        <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
+                   currentPage={props.currentPage}
+                   onPageChanged={props.onPageChanged}/>
         {
             props.usersData.map(u => <div key={u.id}>
                     <span>
@@ -35,10 +28,10 @@ let Users = (props) => {
                         </div>
                         <div>
                             <button
-                            disabled={props.followingInProgress.some(id => id === u.id)}
+                                disabled={props.followingInProgress.some(id => id === u.id)}
                                 onClick={() => {
                                     props.followUpdate(u.id, u.followed)
-                            }}>
+                                }}>
                                 {u.followed ? 'Unfollow' : 'Follow'}
                             </button>
                         </div>

@@ -96,17 +96,15 @@ export const getUserProfile = (userId) => (dispatch) => {
         dispatch(setUserProfile(response.data));
     })
 }
-export const getUserStatus = (userId) => (dispatch) => {
-    usersAPI.getUserStatus(userId).then(response => {
+export const getUserStatus = (userId) => async (dispatch) => {
+    const response = await usersAPI.getUserStatus(userId)
         dispatch(setStatus(response.data));
-    })
 }
-export const updateStatus = (status) => (dispatch) => {
-    usersAPI.updateUserStatus(status).then(response => {
+export const updateStatus = (status) => async (dispatch) => {
+    const response = await  usersAPI.updateUserStatus(status)
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status));
         }
-    })
 }
 
 
