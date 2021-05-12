@@ -22,8 +22,8 @@ export const usersAPI = {
     getAuth(){
     return instance.get(`/auth/me`).then(response => response.data)
     },
-    login(email,password, rememberMe = false){
-        return instance.post(`/auth/login`,{email,password, rememberMe}).then(response => response.data)
+    login(email,password, rememberMe = false, captcha){
+        return instance.post(`/auth/login`,{email,password, rememberMe,captcha}).then(response => response.data)
     },
     logout(email,password, rememberMe = false){
         return instance.delete(`/auth/login`).then(response => response.data)
@@ -33,6 +33,21 @@ export const usersAPI = {
     },
     getUserStatus(userId) {
         return instance.get(`/profile/status/${userId}`)
+    },
+    getCaptchaUrl() {
+        return instance.get(`/security/get-captcha-url`)
+    },
+    savePhoto(photoFile) {
+        const formData = new FormData();
+        formData.append("image", photoFile)
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    saveProfile(profile) {
+        return instance.put(`/profile`,profile)
     },
     updateUserStatus(status) {
         return instance.put(`/profile/status`,{status})

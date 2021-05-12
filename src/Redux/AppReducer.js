@@ -26,8 +26,6 @@ export const initializeApp = () => (dispatch) => {
     dispatch(getAuth()).then(() => {
         dispatch(initializedSuccess());
     });
-
-
 }
 
 export default appReducer;
