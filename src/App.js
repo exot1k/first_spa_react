@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import SecondNavbar from "./components/SecondNavBar/SecondNavbar";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
@@ -34,6 +34,8 @@ class App extends React.Component {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
+                    <Switch>
+                    <Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>
                     <Route exact path={"/dialogs"} render={withSuspense(Dialogs)}/>
                     <Route path={"/profile/:userId?"} render={withSuspense(ProfileContainer)}/>
                     <Route path={"/news"}  render={withSuspense(News)} />
@@ -42,6 +44,7 @@ class App extends React.Component {
                     <Route path={"/users"} render={withSuspense(UsersContainer)} />
                     <Route path={"/friends"} render={withSuspense(Friends)}/>
                     <Route path={"/login"} render={() => <Login/>}/>
+                    </Switch>
                 </div>
                 <SecondNavbar/>
             </div>
