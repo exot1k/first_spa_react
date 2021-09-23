@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import s from './ProfileInfo.module.css';
 import pepe_profile from './pepe_profile_info.png'
 import Preloader from "../../common/Preloader/Preloader";
