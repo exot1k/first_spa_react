@@ -9,27 +9,27 @@ import {contactsType, profileType} from "../../../types/types";
 
 type propsType = {
     isOwner: boolean
-    profile: profileType
+    profile: profileType | null
     savePhoto: (file:File) => void
     saveProfile: (profile:profileType) => Promise<any>
     status: string
-    updateStatus: () => void
+    updateStatus: (status:string) => void
 }
-const ProfileInfo: React.FC<propsType> = (props) => {
+const ProfileInfo: React.FC<propsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     let [editMode, setEditMode] = useState(false)
 
-    if (!props.profile) {
+    if (!profile) {
         return <Preloader/>
     }
 
     const onLoadMainPhoto = (e: ChangeEvent<HTMLInputElement>) => {
         debugger
         if (e.target.files?.length) {
-            props.savePhoto(e.target.files[0]);
+            savePhoto(e.target.files[0]);
         }
     }
     const onSaveProfileData = (formData:profileType) => {
-        props.saveProfile(formData).then(() => {
+        saveProfile(formData).then(() => {
             setEditMode(false)
         })
     }
@@ -41,12 +41,12 @@ const ProfileInfo: React.FC<propsType> = (props) => {
                      src={pepe_profile}/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large || userPhoto}/>
-                {props.isOwner && <input type={"file"} onChange={onLoadMainPhoto}/>}
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                <img src={profile.photos.large || userPhoto}/>
+                {isOwner && <input type={"file"} onChange={onLoadMainPhoto}/>}
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 {editMode
-                    ? <ProfileDataForm initialValues={props.profile} {...props} onSubmit={onSaveProfileData}/>
-                    : <ProfileData profile={props.profile} isOwner={props.isOwner}
+                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSaveProfileData}/>
+                    : <ProfileData profile={profile} isOwner={isOwner}
                                    goToEditMode={() => {setEditMode(true)}}/>}
 
 

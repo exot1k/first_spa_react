@@ -17,7 +17,7 @@ const Settings = withSuspense(React.lazy(() => import('./components/Settings/Set
 const Friends = withSuspense(React.lazy(() => import('./components/Friends/Friends')));
 const Dialogs = withSuspense(React.lazy(() => import('./components/Dialogs/DialogItem/DialogItemContainer')));
 const UsersContainer = withSuspense(React.lazy(() => import('./components/Users/UsersContainer')));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const ProfileContainer = withSuspense(React.lazy(() => import('./components/Profile/ProfileContainer')));
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -44,7 +44,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                     <Switch>
                         <Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>
                         <Route exact path={"/dialogs"} render={() => <Dialogs/>}/>
-                        <Route path={"/profile/:userId?"} render={ withSuspense(ProfileContainer)}/>
+                        <Route path={"/profile/:userId?"} render={ () => <ProfileContainer/>}/>
                         <Route path={"/news"}  render={() =>  <News/>} />
                         <Route path={"/music"} render={() =>  <Music/>} />
                         <Route path={"/settings"} render={() =>  <Settings/>} />

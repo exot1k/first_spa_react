@@ -5,9 +5,9 @@ import {profileType} from "../../types/types";
 /**/
 
 type PropsType = {
-    profile: profileType
+    profile: profileType |null
     status: string
-    updateStatus: () => void
+    updateStatus: (status:string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
     saveProfile: (profile: profileType) => Promise<any>
