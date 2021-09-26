@@ -5,8 +5,8 @@ import {DialogsDataType} from "../../../types/types";
 
 type propsType = {
     dialogsData: Array<DialogsDataType>
-    onAddMessage: () => void
-    onChangeNewMessage: (e: string) => void
+    sendMessage: () => void
+    updateNewMessage: (e: string) => void
     newMessageText:string
 }
 
@@ -14,11 +14,12 @@ const DialogItem: FC<propsType> = (props) => {
 
     let onAddMessage = () =>
     {
-        props.onAddMessage()
+        props.sendMessage()
     }
 
     let onChangeNewMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeNewMessage(e.target.value);
+        debugger
+        props.updateNewMessage(e.target.value);
     }
 
     let messageItems =

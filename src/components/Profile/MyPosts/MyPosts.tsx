@@ -3,14 +3,18 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {postsDataType} from "../../../types/types";
 
-type propsType = {
+
+export type DispatchPropsType = {
     addPost: () => void
     updateNewPostText: (currentRef: string) => void
+}
+
+export type MapPropsType = {
     postsData: Array<postsDataType>
     newPostText: string
 }
 
-const MyPosts:FC<propsType> = React.memo(props => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     console.log("render")
     let postsElements = props.postsData.map((el) => (
         <Post title={"Post" + el.id} message={el.message} like={el.likesCount} key={el.id}/>));
@@ -40,8 +44,10 @@ const MyPosts:FC<propsType> = React.memo(props => {
             </div>
         </div>
     );
-});
+};
 
 
 
-export default MyPosts;
+const MyPostsMemorized = React.memo(MyPosts);
+
+export default MyPostsMemorized;

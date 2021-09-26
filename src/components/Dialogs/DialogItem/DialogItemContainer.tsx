@@ -2,11 +2,12 @@ import React from 'react';
 import {actions} from "../../../Redux/DialogsReducer";
 import DialogItem from "./DialogItem";
 import {connect} from "react-redux";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
-import {compose} from "redux";
 import {appStateType} from "../../../Redux/ReduxStore";
 import {DialogsDataType} from "../../../types/types";
-import {followUpdate, getUsers} from "../../../Redux/UserReducer";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {withRouter} from "react-router-dom";
+
 
 
 type MapStatePropsType = {
@@ -24,10 +25,11 @@ let mapStateToProps = (state:appStateType):MapStatePropsType => {
 
 
 
-export default connect(mapStateToProps, {...actions})(DialogItem);
+//export default connect(mapStateToProps, {...actions})(DialogItem);
 
-/*export default
-compose(
+export default
+compose<React.ComponentType>(
     connect(mapStateToProps, {...actions})
-    , withAuthRedirect
-)(DialogItem) as React.ComponentType;*/
+    ,withAuthRedirect,
+    withRouter
+)(DialogItem) ;

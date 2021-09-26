@@ -35,7 +35,7 @@ let initialState = {
             message: 'Yo',
             likesCount: 0
         }] as Array<postsDataType>,
-    newPostText: null as null | string,
+    newPostText: '' as  string,
     profile: null as profileType | null,
     status: "",
 }
