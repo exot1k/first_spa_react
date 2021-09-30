@@ -44,8 +44,9 @@ type getCaptchaUrlResponseType = {
 
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 7) {
-        return instance.get<getItemsType<usersDataType>>(`users?page=${currentPage}&count=${pageSize}`,
+    getUsers(currentPage = 1, pageSize = 7, term: string = '', friend: null | boolean = null) {
+        return instance.get<getItemsType<usersDataType>>(`users?page=${currentPage}&count=${pageSize}&term=${term}`
+            + (friend === null ? '' : `&friend=${friend}`),
         ).then(res => res.data)
     },
     follow(userId: number) {

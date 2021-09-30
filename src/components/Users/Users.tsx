@@ -4,16 +4,19 @@ import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
 import {usersDataType} from "../../types/types";
 import {FC} from "react";
+import {UsersSearchForm} from "./UsersSearchForm";
+import {FilterType} from "../../Redux/UserReducer";
 
 type PropsType = {
-    totalUsersCount:number
-    pageSize:number
-    currentPage:number
-    onPageChanged: (pageNumber:number) => void
-    isFetching:boolean
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    isFetching: boolean
     usersData: Array<usersDataType>
     followingInProgress: Array<number>
-    followUpdate: (userId:number, isFollow:boolean) => void
+    followUpdate: (userId: number, isFollow: boolean) => void
+    onFilterChanged: (filter: FilterType) => void
 }
 
 let Users: FC<PropsType> = (props) => {
@@ -25,6 +28,7 @@ let Users: FC<PropsType> = (props) => {
     }
 
     return <div>
+        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
         <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                    currentPage={props.currentPage}
                    onPageChanged={props.onPageChanged}/>
