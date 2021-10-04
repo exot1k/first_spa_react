@@ -22,6 +22,7 @@ const Settings = withSuspense(React.lazy(() => import('./components/Settings/Set
 const Friends = withSuspense(React.lazy(() => import('./components/Friends/Friends')));
 const Dialogs = withSuspense(React.lazy(() => import('./components/Dialogs/DialogItem/DialogItemContainer')));
 const ProfileContainer = withSuspense(React.lazy(() => import('./components/Profile/ProfileContainer')));
+const ChatPage = withSuspense( React.lazy(() => import('./Pages/Chat/ChatPage')))
 
 
 
@@ -82,6 +83,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                 <Route path={"/users"} render={() => <UsersPages/>} />
                                 <Route path={"/friends"} render={() =>  <Friends/>}/>
                                 <Route path={"/login"} render={() => <Login/>}/>
+                                <Route path={"/chat"} render={() => <ChatPage/>}/>
+                                <Route path={"*"} render={() => <div>404</div>}/>
                             </Switch>
                         </Content>
                     </Layout>
