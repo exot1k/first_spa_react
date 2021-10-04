@@ -36,10 +36,10 @@ const ProfileInfo: React.FC<propsType> = ({profile, status, updateStatus, isOwne
 
     return (
         <div>
-            <div>
+           {/* <div>
                 <img className={s.img}
                      src={pepe_profile}/>
-            </div>
+            </div>*/}
             <div className={s.descriptionBlock}>
                 <img src={profile.photos.large || userPhoto}/>
                 {isOwner && <input type={"file"} onChange={onLoadMainPhoto}/>}

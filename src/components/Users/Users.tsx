@@ -1,51 +1,84 @@
 import s from './Users.module.css';
 import userPhoto from '../../Assets/Images/15193c074ae8ef6f13d351602618ee7d.jpg'
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
-import {usersDataType} from "../../types/types";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {UsersSearchForm} from "./UsersSearchForm";
-import {FilterType} from "../../Redux/UserReducer";
+import {FilterType, getUsers} from "../../Redux/UserReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersFilter,
+    getUsersSuper
+} from "../../Redux/Selectors/UsersSelectors";
+import * as queryString from 'querystring';
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    isFetching: boolean
-    usersData: Array<usersDataType>
-    followingInProgress: Array<number>
-    followUpdate: (userId: number, isFollow: boolean) => void
-    onFilterChanged: (filter: FilterType) => void
-}
+type PropsType = {}
 
 let Users: FC<PropsType> = (props) => {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filter = useSelector(getUsersFilter)
+    const usersData = useSelector(getUsersSuper)
+    const followingInProgress = useSelector(getFollowingProgress)
+    const history = useHistory();
+    const dispatch = useDispatch()
+
+    const followUpdate = (userId: number, isFollow: boolean) => {
+        dispatch(followUpdate(userId, isFollow))
+    }
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsers(pageNumber, pageSize, filter));
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsers(1, pageSize, filter));
     }
 
+    useEffect(() => {
+        const parsed = queryString.parse(history.location.search.substr(1)) as { term: string, page: string, friend: string }
+        let actualPage = currentPage
+        let actualFilter = filter
+        if (parsed.page) actualPage = Number(parsed.page)
+        if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+        if (!!parsed.friend) actualFilter = {
+            ...actualFilter,
+            friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false
+        }
+        dispatch(getUsers(actualPage, pageSize, actualFilter));
+    }, [])
+
+    useEffect(() => {
+        history.push({
+            pathname: '/users',
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+
+    }, [filter, currentPage])
+
     return <div>
-        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
-        <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
-                   currentPage={props.currentPage}
-                   onPageChanged={props.onPageChanged}/>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
+        <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize}
+                   currentPage={currentPage}
+                   onPageChanged={onPageChanged}/>
         {
-            props.usersData.map(u => <div key={u.id}>
+            usersData.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <NavLink to={'/profile/' + u.id}>
+                            <NavLink to={`/profile/${u.id}`}>
                                 <img src={u.photos.small != null ? u.photos.small : userPhoto}
                                      className={s.userPhoto}/>
                             </NavLink>
                         </div>
                         <div>
                             <button
-                                disabled={props.followingInProgress.some(id => id === u.id)}
+                                disabled={followingInProgress.some(id => id === u.id)}
                                 onClick={() => {
-                                    props.followUpdate(u.id, u.followed)
+                                    followUpdate(u.id, u.followed)
                                 }}>
                                 {u.followed ? 'Unfollow' : 'Follow'}
                             </button>
