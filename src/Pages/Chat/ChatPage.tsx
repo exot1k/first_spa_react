@@ -1,13 +1,10 @@
 import {FC, useEffect, useState} from "react";
 import {Avatar} from "antd";
+import {ChatMessageType} from "../../api/chatApi";
+import {useDispatch, useSelector} from "react-redux";
+import {sendMessage, startMessagesListening} from "../../Redux/ChatReducer";
+import {appStateType} from "../../Redux/ReduxStore";
 
-const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
 
 const ChatPage: FC = () => {
     return (
@@ -18,6 +15,13 @@ const ChatPage: FC = () => {
 }
 
 const Chat: FC = () => {
+    const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        dispatch(startMessagesListening());
+    }, [])
     return (
         <div>
             <Messages/>
@@ -27,16 +31,7 @@ const Chat: FC = () => {
 }
 
 const Messages: FC = () => {
-    const [messages, setMessages] = useState<ChatMessageType[]>([])
-    useEffect(() => {
-        wsChannel.addEventListener('message', (e) => {
-            let newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        })
-
-    },[])
-
-
+    const messages = useSelector((state: appStateType) => state.chat.messages);
     return (
         <div style={{height: '500px', overflowY: 'auto'}}>
             {messages.map((message, index) => <Message key={index} message={message}/>)}
@@ -57,25 +52,31 @@ const Message: FC<{ message: ChatMessageType }> = ({message}) => {
 
 const AddMessageForm: FC = () => {
     const [message, setMessage] = useState('')
+    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+    const dispatch = useDispatch();
 
-    const sendMessage = () => {
-        if(!message){return}
-        wsChannel.send(message)
+
+    const sendMessageHandler = () => {
+        if (!message) {
+            return
+        }
+        dispatch(sendMessage(message));
         setMessage('')
     }
 
     return (
         <div>
             <div>
-                <textarea onChange={(e) => {setMessage(e.currentTarget.value)}} value={message}/>
+                <textarea onChange={(e) => {
+                    setMessage(e.currentTarget.value)
+                }} value={message}/>
             </div>
             <div>
-                <button onClick={sendMessage}>Send</button>
+                <button disabled={false} onClick={sendMessageHandler}>Send</button>
             </div>
         </div>
     )
 }
-
 
 
 export default ChatPage;
