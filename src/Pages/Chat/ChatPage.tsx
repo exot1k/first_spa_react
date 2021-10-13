@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import {Avatar} from "antd";
 import {ChatMessageType} from "../../api/chatApi";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,15 +15,16 @@ const ChatPage: FC = () => {
 }
 
 const Chat: FC = () => {
-    const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
     const dispatch = useDispatch();
-
+    const status = useSelector((state: appStateType) => state.chat.status);
 
     useEffect(() => {
         dispatch(startMessagesListening());
     }, [])
+
     return (
         <div>
+            {status === 'error' ?? <div>Some Err</div>}
             <Messages/>
             <AddMessageForm/>
         </div>
@@ -32,14 +33,33 @@ const Chat: FC = () => {
 
 const Messages: FC = () => {
     const messages = useSelector((state: appStateType) => state.chat.messages);
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    const [isAutoScroll, setIsAutoScroll] = useState(false);
+
+    const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const element = e.currentTarget
+        if (Math.abs(element.scrollHeight - element.scrollTop) < 800) {
+            !isAutoScroll && setIsAutoScroll(true);
+        } else {
+            isAutoScroll && setIsAutoScroll(false);
+        }
+    }
+
+    useEffect(() => {
+        if (isAutoScroll) {
+            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        }
+    }, [messages])
+
     return (
-        <div style={{height: '500px', overflowY: 'auto'}}>
+        <div style={{height: '500px', overflowY: 'auto'}} onScroll={scrollHandler}>
             {messages.map((message, index) => <Message key={index} message={message}/>)}
+            <div ref={messagesAnchorRef}></div>
         </div>
     )
 }
 
-const Message: FC<{ message: ChatMessageType }> = ({message}) => {
+const Message: FC<{ message: ChatMessageType }> = React.memo(({message}) => {
     return (
         <div>
             <Avatar src={message.photo}/> <b>{message.userName}</b>
@@ -48,13 +68,12 @@ const Message: FC<{ message: ChatMessageType }> = ({message}) => {
             <hr/>
         </div>
     )
-}
+})
 
 const AddMessageForm: FC = () => {
     const [message, setMessage] = useState('')
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const dispatch = useDispatch();
-
+    const status = useSelector((state: appStateType) => state.chat.status);
 
     const sendMessageHandler = () => {
         if (!message) {
@@ -72,7 +91,7 @@ const AddMessageForm: FC = () => {
                 }} value={message}/>
             </div>
             <div>
-                <button disabled={false} onClick={sendMessageHandler}>Send</button>
+                <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
             </div>
         </div>
     )

@@ -69,6 +69,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                     <Menu.Item key="4"><Link to={'/music'}>Music</Link></Menu.Item>
                                     <Menu.Item key="5"> <Link to={'/settings'}>Settings</Link></Menu.Item>
                                     <Menu.Item key="7"> <Link to={'/users'}>Users</Link></Menu.Item>
+                                    <Menu.Item key="8"> <Link to={'/chat'}>Users</Link></Menu.Item>
                                 </SubMenu>
                             </Menu>
                         </Sider>
@@ -89,26 +90,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center' }}> ©2021 Created by Exotik</Footer>
             </Layout>
-            /*<div className='app-wrapper'>
-                <HeaderContainer/>
-                <Navbar messageCount={1}/>
-                <div className={"app-wrapper-content"}>
-                    <Switch>
-                        <Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>
-                        <Route exact path={"/dialogs"} render={() => <Dialogs/>}/>
-                        <Route path={"/profile/:userId?"} render={ () => <ProfileContainer/>}/>
-                        <Route path={"/news"}  render={() =>  <News/>} />
-                        <Route path={"/music"} render={() =>  <Music/>} />
-                        <Route path={"/settings"} render={() =>  <Settings/>} />
-                        <Route path={"/users"} render={() => <UsersPages/>} />
-                        <Route path={"/friends"} render={() =>  <Friends/>}/>
-                        <Route path={"/login"} render={() => <Login/>}/>
-                    </Switch>
-                </div>
-                <SecondNavbar/>
-            </div>*/
         );
     }
 }

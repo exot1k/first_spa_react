@@ -33,7 +33,6 @@ export const getAuth = (state: appStateType) => {
 
     return state.auth
 }
-
 export const getUsersSuper = createSelector(getUsersSelector, (users) => {
     return users.filter(u => true)
 })
